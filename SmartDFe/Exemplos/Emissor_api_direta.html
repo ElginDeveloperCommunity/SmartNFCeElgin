@@ -563,10 +563,6 @@
                 <input type="text" id="cfg-url" value="http://localhost:3001">
             </div>
             <div class="input-group">
-                <label>Token de Acesso (Bearer)</label>
-                <input type="password" id="cfg-token" placeholder="Insira seu token">
-            </div>
-            <div class="input-group">
                 <label>Chave NFCE Ativa (Memória)</label>
                 <input type="text" id="cfg-chave" placeholder="Será preenchida automaticamente" oninput="updateGlobalChave(this.value)">
             </div>
@@ -619,7 +615,6 @@
         async function executeCall(config) {
             const { id, method, path, body, isFormData } = config;
             const baseUrl = document.getElementById('cfg-url').value.replace(/\/$/, '');
-            const token = document.getElementById('cfg-token').value;
             
             // UI Refs
             const loader = document.getElementById(`loader-${id}`);
@@ -632,7 +627,6 @@
 
             try {
                 const headers = { 'Accept': 'application/json' };
-                if (token) headers['Authorization'] = `Bearer ${token}`;
                 if (!isFormData) headers['Content-Type'] = 'application/json';
 
                 const response = await fetch(`${baseUrl}${path}`, {
